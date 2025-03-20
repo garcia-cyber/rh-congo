@@ -95,6 +95,15 @@ def login():
        
     return render_template('auth-login.html')
 
+### 
+# 
+# deconnexion 
+@app.route('/deco')
+def deco():
+    session.clear()
+    return redirect('/')
+
+
 ###
 #
 # interface d'accueil 
