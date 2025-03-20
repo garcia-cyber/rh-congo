@@ -18,7 +18,9 @@
   <link rel='shortcut icon' type='image/x-icon' href="{{url_for('static',filename ='assets/img/favicon.ico')}}" />
   <style>
     body{
-      background: #111;
+      background: linear-gradient(to left , #000 , #0008),url('static/rdc.jpg');
+      background-repeat: no-repeat;
+      background-size: cover;
       height: 100vh;
     }
   </style>
@@ -33,6 +35,10 @@
           <div class="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4">
             <div class="card card-primary">
               <div class="card-header">
+                
+                <h4 class="text-center">Authentification</h4>
+              </div>
+              <div class="card-body">
                 {% with messages = get_flashed_messages() %}
                   {% if messages %}
                     {% for i in messages %}
@@ -42,15 +48,12 @@
                     {% endfor %}
                   {% endif %}
                 {% endwith %}
-                <h4>Login</h4>
-              </div>
-              <div class="card-body">
-                <form method="POST" action="#" class="needs-validation" novalidate="">
+                <form method="POST" action="/" class="needs-validation" novalidate="">
                   <div class="form-group">
-                    <label for="email">Email</label>
-                    <input id="email" type="email" class="form-control" name="email" tabindex="1" required autofocus>
+                    <label for="email">phone ou email</label>
+                    <input id="email" type="text" class="form-control" name="num" placeholder="telephone ou email" tabindex="1" required autofocus>
                     <div class="invalid-feedback">
-                      Please fill in your email
+                      Entrez le numero de telephone
                     </div>
                   </div>
                   <div class="form-group">
@@ -75,7 +78,7 @@
                   </div>
                   <div class="form-group">
                     <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
-                      Login
+                      Valider
                     </button>
                   </div>
                 </form>
