@@ -16,7 +16,7 @@ app.secret_key = 'AppRessourceHumaine_MukokoGracia'
 ###
 #
 # interface login 
-@app.route('/',methods = ['POST','GET'])
+# @app.route('/',methods = ['POST','GET'])
 @app.route('/login',methods = ['POST','GET'])
 def login():
     if request.method == 'POST':
