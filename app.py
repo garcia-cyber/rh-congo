@@ -114,6 +114,79 @@ def home():
     else:
         return redirect('/')
 
+###
+#
+# liste de personnel vivant 
+@app.route('/personnel')
+def personnel():
+    if 'rh' in session:
+        return render_template('export-table.html')
+    else:
+        return redirect('/login')
+
+##
+#
+# ajout de poste 
+@app.route('/poste', methods = ['POST','GET'])
+def poste():
+    if 'rh' in session:
+        if request.method == 'POST':
+            poste = request.form['poste'] 
+
+            with sqlite3.connect('rh.db') as con :
+
+                # verification du poste existsant 
+                pst = con.cursor()
+                pst.execute("select * from postes where libPoste = ?",[poste])
+                dataP = pst.fetchone()
+
+                if dataP:
+                    flash("le poste existe deja dans le systeme")
+                else:
+                    cur = con.cursor()
+                    cur.execute("insert into postes(libPoste) values(?)",[poste])
+                    con.commit()
+                    cur.close()
+                    flash(f"poste {poste} ajoutee !! ")    
+        return render_template('basic-form.html')
+    else:
+        return redirect('/login')
+##
+#
+# liste des postes
+@app.route('/listPoste')
+def listPoste():
+    if 'rh' in session:
+        with sqlite3.connect('rh.db') as con :
+            cur = con.cursor()
+            cur.execute("select * from postes")
+            data = cur.fetchall()
+        return render_template('postes.html', data = data)
+    else:
+        return redirect("/login")
+##
+# 
+# modifcation du postes
+@app.route('/modifierPoste/<string:idPoste>', methods = ["POST",'GET'])
+def modifier(idPoste):
+    if 'rh' in session:
+        if request.method == 'POST':
+            poste = request.form['poste'] 
+            with sqlite3.connect('rh.db') as con :
+                add = con.cursor()
+                add.execute("update postes set libPoste = ? where idPoste = ?",[poste,idPoste]) 
+                con.commit()
+                add.close()
+                return redirect('/listPoste')
+            
+        with sqlite3.connect('rh.db') as con :
+            cur = con.cursor()
+            cur.execute("select * from postes where idPoste = ?", [idPoste])
+            value = cur.fetchone()
+
+        return render_template('modifiePoste.html', values = value)
+    else:
+        return redirect('/login')  
 if __name__ == '__main__':
     app.run(debug=True)
 

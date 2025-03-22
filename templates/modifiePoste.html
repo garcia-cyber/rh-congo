@@ -6,7 +6,7 @@
 <head>
   <meta charset="UTF-8">
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-  <title>Ajouter | poste</title>
+  <title>Modifier | poste</title>
   <!-- General CSS Files -->
   <link rel="stylesheet" href="{{url_for('static',filename = 'assets/css/app.min.css')}}">
   <!-- Template CSS -->
@@ -40,19 +40,19 @@
                     {% endfor %}
                   {% endif %}
                 {% endwith %}
-                  <form method="post" action="/poste">
+                  <form method="post" action="">
                     <div class="card-header">
-                      <h4>Enregistrer Poste</h4>
+                      <h4>Modifier Poste</h4>
                     </div>
                     <div class="card-body">
                       <div class="form-group">
                         <label>Poste</label>
-                        <input type="text" name="poste"  class="form-control" required="">
+                        <input type="text" name="poste" value="{{values[1]}}"  class="form-control" required="">
                       </div>
                       
                      
                     <div class="card-footer text-right">
-                      <button class="btn btn-primary">Ajouter</button>
+                      <button class="btn btn-primary">Modifier</button>
                     </div>
                   </form>
                 </div>
