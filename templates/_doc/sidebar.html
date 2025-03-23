@@ -14,12 +14,35 @@
         <li class="dropdown">
           <a href="#" class="menu-toggle nav-link has-dropdown"><i
               data-feather="briefcase"></i><span>parametres</span></a>
+             
           <ul class="dropdown-menu">
             
-            <li><a class="nav-link" href="/poste">Ajouter poste</a></li>
-            <li><a class="nav-link" href="widget-data.html">Data Widgets</a></li>
+            <li><a class="nav-link" href="/poste">Enregistrer poste</a></li>
+            <li><a class="nav-link" href="/addPersonnel">Enregistrer personnel</a></li>
           </ul>
         </li>
+       <!-- charge de recrutement -->
+        {%elif session['poste'] == 3 %}
+        <li class="dropdown">
+          <a href="#" class="menu-toggle nav-link has-dropdown"><i
+              data-feather="briefcase"></i><span>parametres</span></a>
+          <ul class="dropdown-menu">
+            
+            <li><a class="nav-link" href="/poste">Enregistrer poste</a></li>
+            <li><a class="nav-link" href="/addPersonnel">Enregistrer personnel</a></li>
+          </ul>
+        </li>
+        <!-- assistant de ressources humaines -->
+        {%elif session['poste'] == 5 %}
+        <!-- <li class="dropdown">
+          <a href="#" class="menu-toggle nav-link has-dropdown"><i
+              data-feather="briefcase"></i><span>parametres</span></a>
+          <ul class="dropdown-menu">
+            
+            <li><a class="nav-link" href=""></a></li>
+            <li><a class="nav-link" href="">Enregistrer personnel</a></li>
+          </ul>
+        </li> -->
         {%endif%}
         <li class="dropdown">
           <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="command"></i><span>Apps</span></a>
@@ -63,6 +86,19 @@
             <li><a class="nav-link" href="editable-table.html">Editable Table</a></li>
           </ul>
         </li>
+        <!-- charge de ressources humaines -->
+        {% elif session['poste'] == 5 %}
+        <li class="dropdown">
+          <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="grid"></i><span>Listes</span></a>
+          <ul class="dropdown-menu">
+            <!-- <li><a class="nav-link" href="/listPoste">postes</a></li>
+            <li><a class="nav-link" href="advance-table.html">Advanced Table</a></li> -->
+            <li><a class="nav-link" href="/personnel">personnels en vie</a></li>
+            <li><a class="nav-link" href="/listConge">personnels en conge</a></li>
+            <!-- <li><a class="nav-link" href="export-table.html">Export Table</a></li>
+            <li><a class="nav-link" href="editable-table.html">Editable Table</a></li> -->
+          </ul>
+        </li>
         {% endif %}
         
         <li class="menu-header">Pages</li>
@@ -70,6 +106,7 @@
           <a href="#" class="menu-toggle nav-link has-dropdown"><i
               data-feather="user-check"></i><span>Auth</span></a>
           <ul class="dropdown-menu">
+            <li><a href="/change/{{session['id']}}">change password</a></li>
             <li><a href="/deco">deconnexion</a></li>
             
           </ul>

@@ -120,14 +120,19 @@ def home():
 @app.route('/personnel')
 def personnel():
     if 'rh' in session:
-        return render_template('export-table.html')
+        with sqlite3.connect("rh.db") as con :
+            cur = con.cursor()
+            cur.execute("select idEmpl, nomsEmpl,sexeEmpl,matriculeEmpl,civiliteEmpl,communeEmpl,adresseEmpl,lieuNai,dateNai,province,libPoste , statut , phoneEmpl from employes inner join postes on employes.posteEmpl = postes.idPoste where lifeEmploye = 'oui'") 
+            data = cur.fetchall()
+
+        return render_template('export-table.html', data = data ) 
     else:
         return redirect('/login')
 
 ##
 #
 # ajout de poste 
-@app.route('/poste', methods = ['POST','GET'])
+@app.route('/poste', methods = ['POST','GET']) 
 def poste():
     if 'rh' in session:
         if request.method == 'POST':
@@ -187,6 +192,143 @@ def modifier(idPoste):
         return render_template('modifiePoste.html', values = value)
     else:
         return redirect('/login')  
+##
+# 
+# ajout de personnels  
+@app.route("/addPersonnel",methods = ['POST', 'GET'])
+def addPersonnel():
+    if 'rh' in session:
+
+        if request.method =='POST':
+            noms = request.form['noms']
+            telephone = request.form['telephone']
+            matricule = request.form['matricule']
+            commune = request.form['commune'] 
+            avenue = request.form['avenue']
+            lieu   = request.form['lieu']
+            naissance = request.form['naissance']
+            province = request.form['province']
+            etat = request.form['etat']
+            poste = request.form['poste']
+            sexe = request.form['sexe']
+            pwd  = 1234
+
+            with sqlite3.connect("rh.db") as con :
+                #verication du matricule 
+                mat = con.cursor()
+                mat.execute("select * from employes where matriculeEmpl = ?",[matricule])
+                data_mat = mat.fetchone()
+
+                #verification du telephone 
+                tel = con.cursor()
+                tel.execute("select * from employes where phoneEmpl = ?",[telephone])
+                data_tel = tel.fetchone()
+
+                #verification de poste 
+                pst = con.cursor()
+                pst.execute("select * from employes where posteEmpl = ?",[poste])
+                data_pst = pst.fetchone()
+
+                if data_mat:
+                    flash(f" matricule {matricule} deja attribue".title()) 
+                elif data_tel:
+                    flash(f"numero {telephone} deja attribue".title())
+                elif data_pst :
+                    flash(f" post deja attribue".title())
+                else:
+                    cur = con.cursor()
+                    cur.execute("""
+                                    insert into employes(nomsEmpl,matriculeEmpl,civiliteEmpl,sexeEmpl,phoneEmpl,communeEmpl,adresseEmpl,lieuNai,dateNai,province,
+                                posteEmpl,passwordEmpl,register) values(?,?,?,?,?,?,?,?,?,?,?,?,?)
+
+""",[noms,matricule,etat,sexe,telephone,commune,avenue,lieu,naissance,province,poste,pwd,session['id']]) 
+                    con.commit()
+                    cur.close()
+                    flash("personnel enregistree !!!")
+                    return redirect('/addPersonnel')    
+
+
+
+
+
+
+
+        with sqlite3.connect('rh.db') as con :
+            pst = con.cursor()
+            pst.execute("select * from postes")
+            dt = pst.fetchall()
+
+        return render_template("personnelAdd.html", dt = dt) 
+    else:
+        return redirect('/login')  
+##
+# 
+# change le mot de passe
+@app.route('/change/<idEmpl>',methods = ['POST',"GET"]) 
+def change(idEmpl):
+    if 'rh' in session:
+        if request.method == 'POST':
+            p1 = request.form['p1']
+            p2 = request.form['p2']
+            p3 = request.form['p3'] 
+
+            with sqlite3.connect('rh.db') as con :
+                #verification du mot de passe
+                pd1 = con.cursor()
+                pd1.execute("select * from employes where passwordEmpl = ? and idEmpl = ?",[p1,session['id']])
+                data_p1 = pd1.fetchone() 
+
+                if data_p1:
+                    if p2 == p3:
+                        cur = con.cursor()
+                        cur.execute("update employes set passwordEmpl = ? where idEmpl = ?" , [p2,session['id']])
+                        con.commit()
+                        cur.close()
+                        return redirect('/login')
+                    else:
+                        flash("le mot de passe doit etre conforme")
+                else:
+                    flash("ancien mot de passe incorrect")
+        return render_template('auth-reset-password.html') 
+    else:
+        return redirect('/login')
+##
+# 
+# conge 
+@app.route('/conge/<string:idEmpl>', methods = ['POST','GET'])
+def conge(idEmpl):
+    if 'rh' in session:
+        if request.method == 'POST':
+            type = request.form['type']
+            debut = request.form['debut'] 
+            fin   = request.form['fin'] 
+
+            with sqlite3.connect("rh.db") as con :
+                #verification dela date du debut 
+
+                dt = con.cursor()
+                dt.execute("select * from conges where debutC = ? and emplID = ?", [debut, idEmpl])
+                data_dt = dt.fetchone()
+
+                #verification de la fin 
+
+                ft = con.cursor()
+                ft.execute("select * from conges where finC = ? and emplID = ?", [debut, idEmpl])
+                data_ft = ft.fetchone()
+
+                if data_dt:
+                    flash("Pour cet employe la date du debut existe deja")
+                elif data_ft:
+                    flash("Pour cet employe la date de la fin existe deja")
+
+                else:
+                    pass 
+
+
+        return render_template('conge.html')   
+    else:
+        return redirect('/login')    
 if __name__ == '__main__':
+
     app.run(debug=True)
 

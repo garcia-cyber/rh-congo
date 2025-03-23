@@ -48,9 +48,10 @@ db.execute("""
 
 # information par defaut rh
 #
-db.execute("insert into employes(nomsEmpl,matriculeEmpl,phoneEmpl,emailEmpl,passwordEmpl,register,posteEmpl) values('rh admin','000-rh/3','0982484573','rh@gmail.com','rh1234',1,1)")
+#db.execute("insert into employes(nomsEmpl,matriculeEmpl,phoneEmpl,emailEmpl,passwordEmpl,register,posteEmpl) values('rh admin','000-rh/3','0982484573','rh@gmail.com','rh1234',1,1)")
 
-
+## table conges 
+db.execute("create table if not exists conges(idConge integer primary key autoincrement , debutC date , finC date , emplID integer, typeC varchar(40),foreign  key(emplID) references employes (idEmpl))")
 
 #commit general 
 db.commit()
