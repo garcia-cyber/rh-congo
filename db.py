@@ -53,5 +53,15 @@ db.execute("""
 ## table conges 
 db.execute("create table if not exists conges(idConge integer primary key autoincrement , debutC date , finC date , emplID integer, typeC varchar(40),foreign  key(emplID) references employes (idEmpl))")
 
+##
+# creation de la table absence 
+db.execute("""
+          create table if not exists absences(
+           idAbsence integer primary key autoincrement, 
+           typeAbscence varchar(40), 
+           )
+
+""")
+
 #commit general 
 db.commit()

@@ -128,6 +128,22 @@ def personnel():
         return render_template('export-table.html', data = data ) 
     else:
         return redirect('/login')
+    
+###
+#
+# liste de personnel mort 
+@app.route('/personnelM')
+def personnelM():
+    if 'rh' in session:
+        with sqlite3.connect("rh.db") as con :
+            cur = con.cursor()
+            cur.execute("select idEmpl, nomsEmpl,sexeEmpl,matriculeEmpl,civiliteEmpl,communeEmpl,adresseEmpl,lieuNai,dateNai,province,libPoste , statut , phoneEmpl from employes inner join postes on employes.posteEmpl = postes.idPoste where lifeEmploye = 'non'") 
+            data = cur.fetchall()
+
+        return render_template('decedes.html', data = data ) 
+    else:
+        return redirect('/login')
+
 
 ##
 #
@@ -322,12 +338,44 @@ def conge(idEmpl):
                     flash("Pour cet employe la date de la fin existe deja")
 
                 else:
-                    pass 
+                    cur = con.cursor()
+                    cur.execute("insert into conges(debutC,finC , emplID , typeC) values(?,?,?,?)",[debut,fin,idEmpl,type])
+                    con.commit()
+                    cur.close()
+
+                    flash("conge attribue!!!! ")
 
 
         return render_template('conge.html')   
     else:
         return redirect('/login')    
+
+##
+# 
+# liste de personnel en conge
+@app.route('/listConge')
+def listConge():
+    if 'rh' in session:
+        with sqlite3.connect("rh.db") as con :
+            cur = con.cursor()
+            cur.execute("select idConge,nomsEmpl , phoneEmpl , debutC,finC,libPoste from employes inner join conges on conges.emplID = employes.idEmpl inner join postes on postes.idPoste = employes.posteEmpl ") 
+            data = cur.fetchall()
+        return render_template('vector-map.html', data = data )  
+    else:
+        return redirect('/login')   
+##
+#
+# formulaire d'absence
+@app.route('/absence/<idEmpl>', methods = ['POST','GET']) 
+def absence(idEmpl):
+    if 'rh' in session:
+        return render_template("dropdown.html")
+    else:
+        return redirect('/login') 
+
+##
+# 
+# boucle  
 if __name__ == '__main__':
 
     app.run(debug=True)
