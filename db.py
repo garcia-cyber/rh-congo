@@ -56,9 +56,14 @@ db.execute("create table if not exists conges(idConge integer primary key autoin
 ##
 # creation de la table absence 
 db.execute("""
-          create table if not exists absences(
-           idAbsence integer primary key autoincrement, 
-           typeAbscence varchar(40), 
+          create table if not exists presences(
+           idPresence integer primary key autoincrement, 
+           typePresence varchar(40),
+           heureP time , 
+           sortis time , 
+           jourP date , 
+           emplID integer ,
+           foreign key(emplID) references employes(idEmpl) 
            )
 
 """)

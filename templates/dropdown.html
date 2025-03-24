@@ -42,36 +42,44 @@
                 {% endwith %}
                   <form method="post" action="">
                     <div class="card-header">
-                      <h4>Enregistrer Absence</h4>
+                      <h4>Enregistrer presence</h4>
                     </div>
                     <div class="card-body">
                       <div class="row">
                         <div class="form-group col-9">
-                          <label>Type de conge</label>
-                          <select name="type" id="" class="form-control">
-                            <option value="vacance">vacance</option>
-                            <option value="maladie">maladie</option>
-                            <option value="conge compasatoire">conge compasatoire</option>
-                            <option value="conge maternite">conge maternite</option>
-                            <option value="conge sans solde">conge sans solde</option>
-                            <option value="conge exceptionnel">conge exceptionnel</option>
+                          <label>Type presence</label>
+                          <select name="type" id="" class="form-control ">
+                            <option value="present(e)">Present(e)</option>
+                            <option value="absent(e)">Absent(e)</option>
+                            <option value="absent(e) avec justification">Absent(e) avec justification</option>
+                            <option value="Malade">Malade</option>
                           </select>
                         </div>
 
                         <div class="form-group col-9">
-                          <label>debut conge</label>
-                          <input type="date" name="debut"  class="form-control" required="">
+                          <label>date </label>
+                          <input type="date" name="jour"  class="form-control" >
                         </div>
 
                       </div>
-
+<!-- 
                       <div class="row">
                         <div class="form-group col-9">
-                            <label>fin conge</label>
-                            <input type="date" name="fin"  class="form-control" required="">
+                          <label>heure d'arrive</label>
+                          <input type="time" name="arrive"  class="form-control">
+                          
+                        </div>
+
+
+                      </div> -->
+
+                      <!-- <div class="row">
+                        <div class="form-group col-9">
+                            <label>Heure de sortie</label>
+                            <input type="time" name="sortie"  class="form-control" >
                           </div>
   
-                        </div>
+                        </div> -->
 
                       </div>
 
