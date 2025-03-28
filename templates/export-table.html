@@ -58,7 +58,7 @@
                           </tr>
                         </thead>
                         <tbody>
-                          
+
                           {% for i in data %}
                           <tr>
                               <td>{{i[0]}}</td>
@@ -79,7 +79,7 @@
                                 <div class="dropdown dropdown-action">
                                   <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fas fa-ellipsis-v ellipse_color"></i></a>
                                   <div class="dropdown-menu dropdown-menu-right">
-                                    <a class="dropdown-item" href=""><i class="fas fa-pencil-alt m-r-5"></i>Modifier</a>
+                                    <a class="dropdown-item" href="/modifiePersonnel/{{i[0]}}"><i class="fas fa-pencil-alt m-r-5"></i>Modifier</a>
                                     <a class="dropdown-item" href=""><i class="fas fa-pencil-alt m-r-5"></i>Bloquer</a>
                                     <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_asset"><i class="fas fa-trash-alt m-r-5"></i> Delete</a>
                                   </div>
@@ -90,14 +90,14 @@
                                   <div class="dropdown-menu dropdown-menu-right">
                                     <a class="dropdown-item" href="/conge/{{i[0]}}"><i class="fas fa-pencil-alt m-r-5"></i>conge</a>
                                     <a class="dropdown-item" href="/absence/{{i[0]}}"><i class="fas fa-pencil-alt m-r-5"></i>Presence</a>
-                                    
+
                                   </div>
                                 </div>
                                 {% endif %}
                               </td>
                           </tr>
                           {% endfor%}
-                          
+
                         </tbody>
                       </table>
                     </div>
@@ -199,7 +199,7 @@
           </div>
         </div>
       </div>
-      
+
     </div>
   </div>
   <!-- General JS Scripts -->

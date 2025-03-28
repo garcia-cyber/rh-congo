@@ -14,9 +14,9 @@
         <li class="dropdown">
           <a href="#" class="menu-toggle nav-link has-dropdown"><i
               data-feather="briefcase"></i><span>parametres</span></a>
-             
+
           <ul class="dropdown-menu">
-            
+
             <li><a class="nav-link" href="/poste">Enregistrer poste</a></li>
             <li><a class="nav-link" href="/addPersonnel">Enregistrer personnel</a></li>
           </ul>
@@ -27,7 +27,7 @@
           <a href="#" class="menu-toggle nav-link has-dropdown"><i
               data-feather="briefcase"></i><span>parametres</span></a>
           <ul class="dropdown-menu">
-            
+
             <li><a class="nav-link" href="/poste">Enregistrer poste</a></li>
             <li><a class="nav-link" href="/addPersonnel">Enregistrer personnel</a></li>
           </ul>
@@ -38,7 +38,7 @@
           <a href="#" class="menu-toggle nav-link has-dropdown"><i
               data-feather="briefcase"></i><span>parametres</span></a>
           <ul class="dropdown-menu">
-            
+
             <li><a class="nav-link" href=""></a></li>
             <li><a class="nav-link" href="">Enregistrer personnel</a></li>
           </ul>
@@ -61,10 +61,10 @@
             <li><a class="nav-link" href="email-read.html">read</a></li>
           </ul>
         </li>
-        
-        
-        
-        <li class="menu-header">Rh</li>
+
+
+
+        <!-- <li class="menu-header">Rh</li>
         <li class="dropdown">
           <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="layout"></i><span>Forms</span></a>
           <ul class="dropdown-menu">
@@ -74,7 +74,7 @@
             <li><a class="nav-link" href="forms-validation.html">Validation</a></li>
             <li><a class="nav-link" href="form-wizard.html">Form Wizard</a></li>
           </ul>
-        </li>
+        </li> -->
         {% if session['poste'] == 1 %}
         <li class="dropdown">
           <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="grid"></i><span>Listes</span></a>
@@ -101,7 +101,7 @@
           </ul>
         </li>
         {% endif %}
-        
+
         <li class="menu-header">Pages</li>
         <li class="dropdown">
           <a href="#" class="menu-toggle nav-link has-dropdown"><i
@@ -109,11 +109,11 @@
           <ul class="dropdown-menu">
             <li><a href="/change/{{session['id']}}">change password</a></li>
             <li><a href="/deco">deconnexion</a></li>
-            
+
           </ul>
         </li>
-       
-       
+
+
       </ul>
     </aside>
   </div>

@@ -1,33 +1,35 @@
-import sqlite3 as sq 
+import sqlite3 as sq
 
 db = sq.connect("rh.db")
 
-# creation de la table postes 
+# creation de la table postes
 #
-# 
+#
 db.execute("""
             create table if not exists postes(
            idPoste integer primary key autoincrement,
            libPoste varchar(80))
 """)
 
-# ajout du poste par defaut 
+# ajout du poste par defaut
 #
 #
 #db.execute("insert into postes(libPoste) values('responsable des ressources humaines')")
 
 # creation de la table employes
-# 
+#
 #
 
+
+#db.execute("drop table employes")
 db.execute("""
                 create table if not exists employes(
            idEmpl integer primary key autoincrement,
            nomsEmpl varchar(80),
-           matriculeEmpl varchar(30) unique,
+           matriculeEmpl varchar(30) ,
            civiliteEmpl varchar(30),
-           sexeEmpl char(1), 
-           phoneEmpl varchar(15), 
+           sexeEmpl char(1),
+           phoneEmpl varchar(15),
            emailEmpl varchar(50),
            communeEmpl varchar(30),
            adresseEmpl varchar(50),
@@ -37,36 +39,38 @@ db.execute("""
            posteEmpl integer ,
            statut varchar(10) default 'actif',
            lifeEmploye char(3) default 'oui',
-           photoEmpl text , 
-           dateR timestamp default current_timestamp , 
-           register integer , 
+           photoEmpl text ,
+           dateR timestamp default current_timestamp ,
+           register integer ,
            passwordEmpl varchar(40),
            foreign key(posteEmpl) references postes(idPoste)
-           
-           )
-""") 
 
+           )
+""")
+
+
+ 
 # information par defaut rh
 #
 #db.execute("insert into employes(nomsEmpl,matriculeEmpl,phoneEmpl,emailEmpl,passwordEmpl,register,posteEmpl) values('rh admin','000-rh/3','0982484573','rh@gmail.com','rh1234',1,1)")
 
-## table conges 
+## table conges
 db.execute("create table if not exists conges(idConge integer primary key autoincrement , debutC date , finC date , emplID integer, typeC varchar(40),foreign  key(emplID) references employes (idEmpl))")
 
 ##
-# creation de la table absence 
+# creation de la table absence
 db.execute("""
           create table if not exists presences(
-           idPresence integer primary key autoincrement, 
+           idPresence integer primary key autoincrement,
            typePresence varchar(40),
-           heureP time , 
-           sortis time , 
-           jourP date , 
+           heureP time ,
+           sortis time ,
+           jourP date ,
            emplID integer ,
-           foreign key(emplID) references employes(idEmpl) 
+           foreign key(emplID) references employes(idEmpl)
            )
 
 """)
 
-#commit general 
+#commit general
 db.commit()

@@ -6,7 +6,7 @@
 <head>
   <meta charset="UTF-8">
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-  <title>Ajouter | personnels</title>
+  <title>Modifier | personnels</title>
   <!-- General CSS Files -->
   <link rel="stylesheet" href="{{url_for('static',filename = 'assets/css/app.min.css')}}">
   <!-- Template CSS -->
@@ -19,7 +19,7 @@
 
 <body>
   <div class="loader"></div>
-  <div id="app"> 
+  <div id="app">
     <div class="main-wrapper main-wrapper-1">
       <div class="navbar-bg"></div>
       {%include '_doc/nav.html'%}
@@ -40,20 +40,20 @@
                     {% endfor %}
                   {% endif %}
                 {% endwith %}
-                  <form method="post" action="/addPersonnel">
+                  <form method="post" action="">
                     <div class="card-header">
-                      <h4>Enregistrer Personnel</h4>
+                      <h4>Modification du Personnel</h4>
                     </div>
                     <div class="card-body">
                       <div class="row">
                         <div class="form-group col-6">
                           <label>noms</label>
-                          <input type="text" name="noms"  class="form-control" required="">
+                          <input type="text" name="noms" value="{{data[1]}}" class="form-control" required="">
                         </div>
 
                         <div class="form-group col-6">
                           <label>telephone</label>
-                          <input type="number" name="telephone"  class="form-control" required="">
+                          <input type="number" name="telephone" value="{{data[5]}}"  class="form-control" required="">
                         </div>
 
                       </div>
@@ -61,11 +61,11 @@
                       <div class="row">
                         <div class="form-group col-6">
                           <label>Matricule</label>
-                          <input type="text" name="matricule"  class="form-control" required="">
+                          <input type="text" name="matricule" value="{{data[2]}}"  class="form-control" required="">
                         </div>
 
                         <div class="form-group col-6">
-                          <label>commune</label>
+                          <label class="">commune ({{data[7]}})</label>
                           <select name="commune" class="form-control" id="">
                             <option value="Lemba">Lemba</option>
                             <option value="Matete">Matete</option>
@@ -83,12 +83,12 @@
                       <div class="row">
                         <div class="form-group col-6">
                           <label>Avenue</label>
-                          <input type="text" name="avenue"  class="form-control" required="">
+                          <input type="text" name="avenue" value="{{data[8]}}"  class="form-control" required="">
                         </div>
 
                         <div class="form-group col-6">
                           <label>Lieu de naissance</label>
-                          <input type="text" name="lieu"  class="form-control" required="">
+                          <input type="text" name="lieu"  value="{{data[9]}}" class="form-control" required="">
                         </div>
 
                       </div>
@@ -96,19 +96,19 @@
                       <div class="row">
                         <div class="form-group col-6">
                           <label>date Naissance</label>
-                          <input type="date" name="naissance"  class="form-control" required="">
+                          <input type="date" name="naissance" value="{{data[10]}}"  class="form-control" required="">
                         </div>
 
                         <div class="form-group col-6">
                           <label>Province</label>
-                          <input type="text" name="province"  class="form-control" required="">
+                          <input type="text" name="province" value="{{data[11]}}"  class="form-control" required="">
                         </div>
 
                       </div>
 
                       <div class="row">
                         <div class="form-group col-6">
-                          <label>etat-civil</label>
+                          <label>etat-civil ({{data[3]}})</label>
                           <select name="etat" class="form-control text-capitalize" id="">
                             <option value="celibataire">celibataire</option>
                             <option value="marie">marie</option>
@@ -131,7 +131,7 @@
 
                       <div class="row">
                         <div class="form-group col-12">
-                          <label>sexe</label>
+                          <label>sexe ({{data[4]}})</label>
                           <select name="sexe" class="form-control text-capitalize" id="">
                             <option value="M">Masculain</option>
                             <option value="F">Feminin</option>
